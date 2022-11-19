@@ -1,47 +1,43 @@
 <?php
-include "vendor/autoload.php";
 
+include "vendor/autoload.php";
 
 use Fpdf\Fpdf;
 
-class PDF extends Fpdf
-{
-    // Page header
-    function Header()
-    {
-
-        // Arial bold 15
-        $this->SetFont('Arial', 'B', 15);
-        // Move to the right
-        $this->Cell(55);
-        // Title
-        $this->Cell(90, 10, '"My Favorite Quotes"', 1, 0, 'C');
-        // Line break
-        $this->Ln(20);
-    }
-
-    // Page footer
-    function Footer()
-    {
-        // Position at 1.5 cm from bottom
-        $this->SetY(-15);
-        // Arial italic 8
-        $this->SetFont('Arial','I',8);
-        // Page number
-        $this->Cell(0,10,'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
-    }
-}
-
-// Instanciation of inherited class
-$pdf = new PDF();
-$pdf->AliasNbPages();
+$pdf = new Fpdf();
+$pdf->AddFont('Castillo');
 $pdf->AddPage();
-$pdf->SetFont('Times', '', 12);
-$pdf->Cell(0,10,'Killian Jarel C. Vitug ',0,1);
-$pdf->SetFont('Arial', '', 12);
-$pdf->Cell(0,10,'CCS ',0,1);
-$pdf->SetFont('Times', '', 12);
-$pdf->Cell(0,10,'killianjarelvitug@yahoo.com ',0,1);
-$pdf->SetFont('Times', '', 12);
-$pdf->Cell(0,10,'18-1346-953 ',0,1);
-$pdf->Output();
+$pdf->SetFont('Castillo','',45);
+$pdf->Write(10,'My Favorite Quotes');
+
+$pdf->Ln(20);
+
+$pdf->SetFont('Castillo','',40);
+$pdf->Write(20,'Dont judge each day by the harvest you reap but by the seeds that you plant.');
+$pdf->Write(20,'-Robert Louis Stevenson');
+
+$pdf->Ln(20);
+$pdf->cell(0);
+
+$pdf->AddFont('Boleh');
+$pdf->SetFont('Boleh','',30);
+$pdf->Write(10,'Tell me and I forget. Teach me and I remember. Involve me and I learn.');
+$pdf->Write(10,'-Benjamin Franklin');
+
+$pdf->Ln(20);
+$pdf->cell(0);
+
+$pdf->AddFont('KeeponTruckin');
+$pdf->SetFont('KeeponTruckin','',35);
+$pdf->Write(10,'It is during our darkest moments that we must focus to see the light.');
+$pdf->Write(10,'-Aristotle');
+
+$pdf->Ln(20);
+$pdf->cell(0);
+$pdf->Output('D', 'FavoriteQuotes.pdf');
+
+
+
+
+
+//Run php vendor/fpdf/fpdf/src/Fpdf/makefont/makefont.php fonts/KeeponTruckin.ttf
